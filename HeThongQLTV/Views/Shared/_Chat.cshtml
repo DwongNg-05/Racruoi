@@ -1,4 +1,4 @@
-@if (User.Identity?.IsAuthenticated == true)
+@if (User.Identity?.IsAuthenticated == true && User.IsInRole("DocGia"))
 {
 <link rel="stylesheet" href="~/css/chat.css" asp-append-version="true" />
 <button id="chat-launch" class="chat-launch" aria-controls="library-chat" aria-expanded="false">♧ <span>Chat</span></button>
