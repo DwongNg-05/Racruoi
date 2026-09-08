@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace HeThongQLTV.Controllers;
 
-[Authorize, EnableRateLimiting("chat")]
+[Authorize(Roles = "DocGia"), EnableRateLimiting("chat")]
 public class ChatController(LibraryDb db, IHttpClientFactory clients, IConfiguration config) : Controller
 {
     public record Turn(string Role, string Text);
