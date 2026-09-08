@@ -1,0 +1,15 @@
+@{ var controller=ViewContext.RouteData.Values["controller"]?.ToString(); bool staff=User.IsInRole("Admin")||User.IsInRole("ThuThu"); }
+<!DOCTYPE html><html lang="vi"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width, initial-scale=1"/><title>@ViewData["Title"] · Lá Library</title><link rel="stylesheet" href="~/css/site.css" asp-append-version="true"/></head><body>
+<aside class="sidebar" id="sidebar"><a class="brand" href="/"><span class="brand-mark">lá</span><span>Lá Library<small>KHÔNG GIAN TRI THỨC</small></span></a>
+<div class="nav-caption">KHÔNG GIAN LÀM VIỆC</div><nav>
+@if(staff){<a class="@(controller=="Home"?"active":"")" href="/"><span>◫</span>Tổng quan</a>}
+<a class="@(controller=="Books"?"active":"")" href="/Books"><span>▤</span>Danh mục sách</a>
+@if(staff){<a class="@(controller=="Members"?"active":"")" href="/Members"><span>♧</span>Quản lý độc giả</a>}
+<a class="@(controller=="Loans"?"active":"")" href="/Loans"><span>⇄</span>@(staff?"Mượn & trả sách":"Sách đang mượn")</a>
+<a class="@(controller=="Reservations"?"active":"")" href="/Reservations"><span>◷</span>Đặt trước sách</a>
+@if(staff){<a class="@(controller=="Reports"?"active":"")" href="/Reports"><span>▥</span>Thống kê & báo cáo</a>}
+@if(User.IsInRole("Admin")){<div class="nav-caption">QUẢN TRỊ</div><a class="@(controller=="Users"?"active":"")" href="/Users"><span>⚙</span>Tài khoản & phân quyền</a>}
+</nav><div class="sidebar-note"><span class="leaf">❧</span><b>Mỗi cuốn sách,<br/>một chân trời mới.</b><p>Nuôi dưỡng thói quen đọc<br/>từ những điều nhỏ nhất.</p></div><div class="sidebar-foot"><span class="online"></span> Hệ thống thư viện <small>Phiên bản 1.0</small></div></aside>
+<div class="workspace"><header class="topbar"><div><button class="menu-button" type="button" aria-label="Mở menu" id="menuToggle">☰</button><span class="breadcrumb">Thư viện <span>/</span> @ViewData["Title"]</span></div><div class="user-area"><span class="today">@DateTime.Today.ToString("dd.MM.yyyy")</span><span class="avatar">@(User.Identity?.Name?.Substring(0,1)??"L")</span><div><b>@(User.Identity?.Name??"Lá Library")</b><small>@(User.IsInRole("Admin")?"Quản trị viên":staff?"Thủ thư":"Độc giả")</small></div>@if(User.Identity?.IsAuthenticated==true){<form asp-controller="Account" asp-action="Logout" method="post"><button class="logout" title="Đăng xuất" aria-label="Đăng xuất">↪</button></form>}</div></header>
+<main>@if(TempData["Success"] is string success){<div class="alert success" role="status">✓ @success</div>}@if(TempData["Error"] is string error){<div class="alert error" role="alert">@error</div>}@RenderBody()</main><footer>Lá Library <span>Hệ thống quản lý thư viện</span><span>Đọc hôm nay. Mở ngày mai.</span></footer></div>
+<partial name="_Chat" /><script src="~/js/site.js" asp-append-version="true"></script>@await RenderSectionAsync("Scripts",required:false)</body></html>

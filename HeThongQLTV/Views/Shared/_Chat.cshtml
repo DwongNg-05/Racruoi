@@ -1,0 +1,15 @@
+@if (User.Identity?.IsAuthenticated == true)
+{
+<link rel="stylesheet" href="~/css/chat.css" asp-append-version="true" />
+<button id="chat-launch" class="chat-launch" aria-controls="library-chat" aria-expanded="false">♧ <span>Chat</span></button>
+<section id="library-chat" class="library-chat" aria-label="Trợ lý AI thư viện" hidden>
+    <header class="chat-tools"><button id="chat-reset" title="Cuộc trò chuyện mới" aria-label="Cuộc trò chuyện mới">↺</button><span>Lá · Trợ lý AI</span><button id="chat-expand" aria-label="Phóng to" aria-pressed="false">⛶</button><button id="chat-close" aria-label="Thu nhỏ">−</button></header>
+    <div id="chat-scroll" class="chat-scroll">
+        <div id="chat-welcome"><div class="chat-hero"><div><span class="chat-eyebrow">MỘT NGƯỜI BẠN ĐỌC SÁCH</span><h2>👋 Chào bạn,<br />hôm nay mình đọc gì?</h2><p>Mình là Lá. Để mình giúp bạn tìm<br />cuốn sách phù hợp nhé.</p></div><div class="chat-covers" aria-hidden="true"><div>lá<small>NHỮNG TRANG SÁCH<br />MỞ CHÂN TRỜI</small></div><div>Đọc.<small>MỖI NGÀY<br />MỘT ĐIỀU MỚI</small></div></div></div><p class="chat-notice">Tra cứu từ danh mục thư viện. Tóm tắt dựa trên mô tả hiện có. Câu hỏi được gửi đến OpenAI để trả lời; đừng nhập thông tin cá nhân.</p><div class="chat-suggestions"><button data-prompt="Tìm sách công nghệ dành cho người mới bắt đầu">Tìm sách cho người mới</button><button data-prompt="Tóm tắt sách Nhà giả kim">Tóm tắt một cuốn sách</button><button data-prompt="Gợi ý sách cùng thể loại với Nhà giả kim">Gợi ý cùng thể loại</button></div></div>
+        <div id="chat-messages" role="log" aria-live="polite" aria-relevant="additions"></div>
+    </div>
+    <form id="chat-form" class="chat-form">@Html.AntiForgeryToken()<label for="chat-input" class="chat-sr">Câu hỏi về sách</label><textarea id="chat-input" rows="1" maxlength="1500" placeholder="Bạn muốn tìm cuốn sách nào?" required></textarea><button id="chat-send" type="submit" aria-label="Gửi tin nhắn">↑</button></form>
+    <small class="chat-foot">Lá AI có thể mắc lỗi. Hãy kiểm tra thông tin sách.</small>
+</section>
+<script src="~/js/chat.js" asp-append-version="true" defer></script>
+}
